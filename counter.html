@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="code.js" defer></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="counter.js"></script>
+    <script src="index.js"></script>
+    <style> 
+        h1{
+            background-color: blueviolet;
+            text-align: center;
+            border: 3px blueviolet double;
+            color: white;
+            
+        }
+        h2{
+            background-color: blueviolet;
+            text-align: center;
+            border: 3px blueviolet double;
+            color: white;
+        }
+        .decrementBtn {
+            border-color: white;
+            border-style: groove;
+            height: 40px;
+            width: 170px;
+            color: white;
+            background-color:red;
+            font-weight: bold;
+            
+        }
+        .incrementBtn {
+            border: groove white;
+            height: 40px;
+            width: 170px;
+            color: white;
+            background-color:#0066ff;
+            font-weight: bold;
+        }
+        .resetBtn {
+            border: groove white;
+            height: 40px;
+            width: 170px;
+            color: white;
+            background-color:green;
+            font-weight: bold;
+        }
+        body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>DOM Counter</h1>
+        <div class="counter" style="font-size:xxx-large;">    
+        </div>
+        <div>
+            <button class="incrementBtn" >Increment</button>
+            <button class="decrementBtn" >Decrement</button>
+        </div>
+    </div>
+    <hr>
+    <div x-data="{ count: 0 }">
+        <h1>Alpinejs Counter</h1>
+        <div class="counter1" x-text="count" style="font-size:xxx-large;"></div>
+        <div>
+            <button class="incrementBtn" @click="count++">Increment</button>
+            <button class="decrementBtn" @click="if(count > 0){ count-- }">Decrement</button>
+        </div>
+    </div>
+    <hr>
+    <div x-data="counter3">
+        <h1>Alpinejs and External JS Counter</h1>
+        <div x-text="count" style="font-size:xxx-large;"></div>
+        <div>
+            <button class="incrementBtn" @click="increment">Increment</button>
+            <button class="resetBtn" @click="reset">Reset</button>
+            <button class="decrementBtn" @click="decrement">Decrement</button>
+        </div>
+    </div>
+</body>
+<script>
+    function Counter() {
+        return {
+            count: 0,
+            increment() {
+                if(this.count < 20){
+                    this.count++;
+                }
+                else{
+                    alert("You have reached the Maximum Value.");
+                }
+            },
+            reset() {
+            this.count = 0;
+            },
+            decrement() {
+                if(this.count > 0){
+                    this.count--;
+                }
+            },
+        };
+    }
+
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('counter3', Counter);
+    });
+</script>
+</html>
